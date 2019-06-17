@@ -1,9 +1,10 @@
-import { Controller, Get, Req, Query } from '@nestjs/common';
+import { Controller, Get, Req, Query, Headers } from '@nestjs/common';
 
 @Controller('posts')
 export class PostsController {
     @Get()
-    index(@Query() query) {
+    index(@Headers() headers, @Query() query) {
+        console.log(headers)
         console.log(query)
         return [
             {
