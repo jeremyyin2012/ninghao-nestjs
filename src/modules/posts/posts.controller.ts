@@ -5,6 +5,7 @@ import { DemoFilter } from '../../core/filters/demo.filter'
 
 
 @Controller('posts')
+@UseFilters(DemoFilter)
 export class PostsController {
 
     constructor(private readonly demoService: DemoService) {}
@@ -22,7 +23,7 @@ export class PostsController {
     }
 
     @Post()
-    @UseFilters(DemoFilter)
+    // @UseFilters(DemoFilter)
     store(@Body() post: CreatePostDto) {
         // throw new HttpException('没有权限！', HttpStatus.FORBIDDEN)
         throw new ForbiddenException('没有权限！')
