@@ -5,7 +5,7 @@ import { DemoFilter } from '../../core/filters/demo.filter'
 
 
 @Controller('posts')
-@UseFilters(DemoFilter)
+// @UseFilters(DemoFilter)
 export class PostsController {
 
     constructor(private readonly demoService: DemoService) {}
