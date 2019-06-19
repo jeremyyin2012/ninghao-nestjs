@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Query, Headers, Param, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Req, Query, Headers, Param, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { CreatePostDto } from './post.dto';
 import { DemoService } from './providers/demo/demo.service'
 import { DemoFilter } from '../../core/filters/demo.filter'
@@ -16,9 +16,11 @@ export class PostsController {
     }
 
     @Get(':id')
-    show(@Param() params) {
+    show(@Param('id', ParseIntPipe) id) {
+        console.log('typeof id:', typeof id);
+        
         return {
-            title: `Post ${params.id}`
+            title: `Post ${id}`
         }
     }
 
