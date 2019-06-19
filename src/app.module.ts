@@ -5,6 +5,8 @@ import { PostsModule } from './modules/posts/posts.module';
 import { DemoMiddleware } from './core/middleware/demo.middleware'
 import { APP_GUARD } from '@nestjs/core';
 import { DemoRolesGuard } from './core/guards/demo-roles.guard'
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './core/interceptors/logging.interceptor'
 
 
 
@@ -16,6 +18,10 @@ import { DemoRolesGuard } from './core/guards/demo-roles.guard'
     {
       provide: APP_GUARD,
       useClass: DemoRolesGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
     }
   ],
 })
