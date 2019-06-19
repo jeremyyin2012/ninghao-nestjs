@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Req, Query, Headers, Param, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Req, Query, Headers, Param, Body, HttpException, HttpStatus, ForbiddenException, UseFilters, UsePipes, ValidationPipe, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CreatePostDto } from './post.dto';
 import { DemoService } from './providers/demo/demo.service'
 import { DemoFilter } from '../../core/filters/demo.filter'
+import { DemoAuthGuard } from '../../core/guards/demo-auth.guard'
 
 
 @Controller('posts')
+@UseGuards(DemoAuthGuard)
 // @UseFilters(DemoFilter)
 export class PostsController {
 

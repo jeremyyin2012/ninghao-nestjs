@@ -6,6 +6,8 @@ export class DemoAuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    return true;
+    const request = context.switchToHttp().getRequest();
+
+    return request.header('x-demo') === 'secret';
   }
 }
