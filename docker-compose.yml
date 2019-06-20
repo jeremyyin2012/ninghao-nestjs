@@ -1,0 +1,2 @@
+version: '3'
+# msyql 以及 web 管理界面直接用已经通过 docker-compose 创建的 8 版本的，就先不写了
