@@ -1,11 +1,32 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PostsController } from './posts/posts.controller';
+import { PostsModule } from './modules/posts/posts.module';
+import { DemoMiddleware } from './core/middleware/demo.middleware'
+import { APP_GUARD } from '@nestjs/core';
+import { DemoRolesGuard } from './core/guards/demo-roles.guard'
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './core/interceptors/logging.interceptor'
+
+
 
 @Module({
-  imports: [],
-  controllers: [AppController, PostsController],
-  providers: [AppService],
+  imports: [PostsModule],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: DemoRolesGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(DemoMiddleware).forRoutes('posts')
+  }
+}
