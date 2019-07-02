@@ -1,11 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { LoginDto } from './login.dto';
+import { JwtPayload } from './auth.interface';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly userService: UserService,
+        private readonly jwtService: JwtService,
     ) {}
 
     async login(data: LoginDto) {
@@ -23,6 +26,17 @@ export class AuthService {
             throw new UnauthorizedException('密码错误')
         }
 
-        return entity
+        const { id } = entity
+        const payload = {username, id}
+        const token = this.signToken(payload)
+
+        return {
+            ...payload
+            token
+        }
+    }
+
+    signToken(data: JwtPayload) {
+        return this.jwtService.sign(data)
     }
 }
