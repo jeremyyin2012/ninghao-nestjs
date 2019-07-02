@@ -27,6 +27,7 @@ export class User {
     }
 
     async comparePassword(password: string) {
+        console.log(password, this.password)
         return await bcrypt.compare(password, this.password);
     }
 }
