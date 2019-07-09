@@ -31,7 +31,7 @@ export class AuthService {
         const token = this.signToken(payload)
 
         return {
-            ...payload
+            ...payload,
             token
         }
     }

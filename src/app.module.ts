@@ -16,6 +16,7 @@ import { AuthModule } from './modules/auth/auth.module';
       password: 'jeremy',
       database: 'nest',
       synchronize: true,
+      logging: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     PostModule,
